@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\EntryNotif;
+use App\Events\MyEvent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('sample');
+});
+
+Route::get('welcome', function () {
     return view('welcome');
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('test', function () {
+    event(new MyEvent('Try Broadcast event'));
+    return "Event has been sent!";
+});
